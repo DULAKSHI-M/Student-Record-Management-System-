@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Update Student</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="Style.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .form-box {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script>
+    function showStudentusingfirstname() {
+            $.ajax({
+                url: 'http://localhost:3000/api/student/firstnames/' + $('#FirstName').val(),
+                type: 'get',
+                contentType: 'application/json',
+                dataType: "json",
+                success: function (data, textStatus, jQxhr) {
+                    if (data.length > 0) {
+                        $("#sid-form2").val(data[0].StudentId),
+                            $("#Fname-form2").val(data[0].FirstName),
+                            $("#Lname-form2").val(data[0].LastName),
+                            $("#email-form2").val(data[0].email),
+                            $("#city-form2").val(data[0].city),
+                            $("#course-form2").val(data[0].course),
+                            $("#guardian-form2").val(data[0].guardian),
+                            $("#subject-form2").val(data[0].subject)
+                    } else {
+                        alert(`No student found with the first name: ${$('#FirstName').val()}`);
+                    }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    alert(`Error: ${errorThrown}`);
+                    console.log(errorThrown);
+                }
+            });
+        }
+        //show student by id
+        function showStudent() {
+          $.ajax({
+            url: 'http://localhost:3000/api/student/' + $('#SId').val(), type: 'get',
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (data, textStatus, jQxhr) {
+              $("#sid-form2").val(data.StudentId),
+                $("#Fname-form2").val(data.FirstName),
+                $("#Lname-form2").val(data.LastName),
+                $("#email-form2").val(data.email),
+                $("#city-form2").val(data.city),
+                $("#course-form2").val(data.course),
+                $("#guardian-form2").val(data.guardian),
+                $("#subject-form2").val(data.subject)
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+              alert(`Student Id: ${$('#SId').val()} not found`);
+              console.log(errorThrown);
+            }
+          });
+        }
+    
+        //update student by id
+        $(document).ready(function () {
+          $("#updateBtn").click(function () {
+            $.ajax({
+              type: 'PUT',
+              url: 'http://localhost:3000/api/student/' + $('#sid-form2').val(),
+              contentType: 'application/json',
+              data: JSON.stringify(
+                {
+                  "StudentId": $("#sid-form2").val(),
+                  "FirstName": $("#Fname-form2").val(),
+                  "LastName": $("#Lname-form2").val(),
+                  "email": $("#email-form2").val(),
+                  "city": $("#city-form2").val(),
+                  "course": $("#course-form2").val(),
+                  "guardian": $("#guardian-form2").val(),
+                  "subject": $("#subject-form2").val()
+                }),
+              success: function (data, textStatus, jQxhr) {
+                alert("Data updated");
+    
+              },
+              error: function (xhr, textStatus, error) {
+                alert("Error");
+              }
+            });
+          });
+        });
+      </script>
+</head>
+<body>
+   <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="Images/Logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        SLIIT 
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item ">
+                <a class="nav-link" href="Home.html">Home</a>
+            </li>
+            <li class="nav-item  ">
+                <a class="nav-link" href="View.html">View</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="Insert.html">Insert a Student</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="Update.html">Update a Student</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+  <div class="container">
+    <div class="form-box">
+      <h1 id="title">UPDATE</h1>
+      <form>
+        <div class="input-group">
+          <div class="input-field">
+            <input type="text" placeholder="Student ID" id="SId">
+          </div>
+          <button type="button" onclick="showStudent()">Enter</button>
+        </div>
+
+        <div class="input-group">
+          <div class="input-field">
+            <input type="text" placeholder="First Name" id="FirstName">
+          </div>
+          <button type="button" onclick="showStudentusingfirstname()">Enter</button>
+        </div>
+
+        <div class="input-group">
+          <div class="input-field">
+            <input type="text" id="sid-form2" placeholder="ID">
+          </div>
+
+          <div class="input-field">
+            <input type="text" id="Fname-form2" placeholder="First Name">
+          </div>
+
+          <div class="input-field">
+            <input type="text" id="Lname-form2" placeholder="Last Name">
+          </div>
+
+          <div class="input-field">
+            <input type="email" id="email-form2" placeholder="Email">
+          </div>
+
+          <div class="input-field">
+            <input type="text" id="city-form2" placeholder="Near City">
+          </div>
+
+          <!-- <div class="input-field">
+            <input type="text" id="Course-form2" placeholder="Course">
+          </div> -->
+
+          <div class="input-field">
+            <input type="text" id="guardian-form2" placeholder="Guardian">
+          </div>
+
+          <div class="input-field">
+            <input type="text" id="subject-form2" placeholder="Subjects">
+          </div>
+        </div>
+
+        <div class="btn-field">
+          <button type="button" id="updateBtn">Update by SID</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script>
+        //update student by id
+        $(document).ready(function () {
+      $("#updateBtn").click(function () {
+        $.ajax({
+          type: 'PUT',
+          url: 'http://localhost:3000/api/student/' + $('#sid-form2').val(),
+          contentType: 'application/json',
+          data: JSON.stringify(
+            {
+              "StudentId": $("#sid-form2").val(),
+              "FirstName": $("#Fname-form2").val(),
+              "LastName": $("#Lname-form2").val(),
+              "email": $("#email-form2").val(),
+              "city": $("#city-form2").val(),
+              "course": $("#course-form2").val(),
+              "guardian": $("#guardian-form2").val(),
+              "subject": $("#subject-form2").val()
+            }),
+          success: function (data, textStatus, jQxhr) {
+            alert("Data updated");
+
+          },
+          error: function (xhr, textStatus, error) {
+            alert("Error");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

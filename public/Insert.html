@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Insert Students</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="Style.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .form-box {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-field {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      $("#submitBtn").click(function() {
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:3000/api/student/',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            "StudentId": $('#sid').val(),
+            "FirstName": $("#Fname").val(),
+            "LastName": $("#Lname").val(),
+            "email": $("#email").val(),
+            "city": $("#city").val(),
+            "course": $("#course").val(),
+            "guardian": $("#guardian").val(),
+            "subject": $("#subject").val()
+          }),
+          success: function(data, textStatus, jQxhr) {
+            alert("Data Inserted");
+          },
+          error: function(xhr, textStatus, error) {
+            alert("Error");
+          }
+        });
+        // Clear the input fields
+        $("#sid").val("");
+        $("#Fname").val("");
+        $("#Lname").val("");
+        $("#email").val("");
+        $("#city").val("");
+        $("#course").val("");
+        $("#guardian").val("");
+        $("#subject").val("");
+      });
+    });
+  </script>
+</head>
+<body>
+	 <!-- Navbar -->
+	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">
+			<img src="Images/Logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+			SLIIT 
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item ">
+					<a class="nav-link" href="Home.html">Home</a>
+				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="View.html">View</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="Insert.html">Insert a Student</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="Update.html">Update a Student</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+  <div class="container">
+	
+    <div class="form-box">
+      <h1 class="text-center">INSERT</h1>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <input type="text" class="form-control" id="sid" placeholder="SID">
+          </div>
+          <div class="form-group col-md-4">
+            <input type="text" class="form-control" id="Fname" placeholder="First Name">
+          </div>
+          <div class="form-group col-md-4">
+            <input type="text" class="form-control" id="Lname" placeholder="Last Name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <input type="email" class="form-control" id="email" placeholder="Email">
+          </div>
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="city" placeholder="Near City">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="course" placeholder="Course">
+          </div>
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="guardian" placeholder="Guardian">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <input type="text" class="form-control" id="subject" placeholder="Subjects">
+          </div>
+        </div>
+        <div class="btn-field">
+          <button type="button" class="btn btn-primary" id="submitBtn">Insert Student</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

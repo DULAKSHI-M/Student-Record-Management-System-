@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="Style.css">
+
+    <style>
+        body {
+            background-image: url('path/to/your/background-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .jumbotron {
+            position: relative;
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 15%;
+            left: 5%;
+            color: rgb(255, 255, 255);
+            text-align: left;
+        }
+
+        .text-overlay h4,
+        .text-overlay p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="Images/Logo.png" width="30" height="30" id="logo" class="d-inline-block align-top" alt="">
+                SLIIT 
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="Home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="View.html">View</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Insert.html">Insert a Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Update.html">Update a Student</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="jumbotron">
+            <img src="Images/SLIIT-malabe.jpg" width="100%" alt="">
+            <div class="text-overlay">
+                <h1>The Knowledge University</h1>
+                <h3>|| Be The Change ||</h3>
+                <p id="p1">This is the most valueble university of srilanka</p>
+
+                <button>Less Show</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Change Background Color on Click
+            $('body').on('click', function () {
+                $(this).css('background-color', 'lightblue');
+            });
+
+            // Toggle Navbar on Hover
+            $('.navbar').hover(function () {
+                $(this).toggleClass('bg-info');
+            });
+
+            // Chnage color
+            
+                $(".jumbotron").dblclick(function(){
+                    $(".text-overlay").css("color", "black");
+                });
+            
+            // Alert Message on Insert Link Click
+            $('a[href="Insert.html"]').on('click', function () {
+                alert('Insert link clicked!');
+            });
+
+            //hide paragraph
+            $("button").click(function(){
+                $("p").hide("slow", function(){
+                    alert("The paragraph is now hidden");
+                });
+                });
+
+            
+            
+        });
+    </script>
+
+</body>
+
+</html>
